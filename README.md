@@ -72,11 +72,26 @@ npm run test:e2e
 - `infra` : runtime PHP et scripts de développement ; `compose.yaml` à la racine.
 - `tests/e2e` : parcours navigateur.
 
+## Administration éditoriale
+
+Ouvrir /administration sur le frontend. Aucun compte n’est créé automatiquement. Depuis un terminal local interactif, créer deux comptes distincts :
+
+~~~bash
+docker compose exec api php artisan kidora:editorial-user --role=admin
+docker compose exec api php artisan kidora:editorial-user --role=reviewer
+~~~
+
+La commande demande un mot de passe masqué d’au moins 12 caractères. Rôles disponibles : writer, reviewer, editor, admin et super_admin. Le rédacteur voit ses fiches ; l’éditeur organise et publie ; le validateur vérifie le contenu ; les administrateurs gèrent aussi les univers. Aucun rôle ne permet de valider une révision à laquelle il a contribué.
+
+Parcours : enregistrer un brouillon, soumettre, faire valider par une autre personne, puis publier avec un compte éditeur ou administrateur. Modifier une fiche publiée prépare une révision privée ; le public conserve la version précédente. Historique et motifs de corrections restent privés. « Retirer » masque la fiche sans effacer son historique. Les métadonnées d’univers sont immédiatement publiques et réservées aux administrateurs ; les adresses restent stables.
+
+La commande npm run test:editorial vérifie ce parcours dans Chromium sur bureau et mobile. Elle réinitialise uniquement **kidora_test**, crée des comptes de test avec un secret aléatoire pour cette exécution et lance des serveurs temporaires sur 8011/3011. Ne pas la lancer simultanément avec test:api. Docker Compose, le build web et Chromium sont requis.
+
 ## Limites de cette tranche
 
-L’administration, l’authentification parent/enfant, la progression, les traductions, les vidéos et le mode PWA hors ligne ne sont pas implémentés. Aucun faux contrôle ne les active. Les univers sans fiche affichent un état explicite. La planète illustrée de l’accueil est décorative, pas une carte scientifique.
+L’authentification parent/enfant, la progression, les traductions, les vidéos et le mode PWA hors ligne ne sont pas implémentés. Aucun faux contrôle ne les active. Les univers sans fiche affichent un état explicite. La planète illustrée de l’accueil est décorative, pas une carte scientifique.
 
-Le seeder et les textes sont identifiés comme démonstration et nécessitent une validation éditoriale. La recherche est textuelle, sans correction orthographique ni recherche sémantique. Les quinze univers ont leurs noms dans PostgreSQL, mais leur édition par interface attend le module administration. Le niveau de lecture n’est pas encore ajustable. GeoWorld couvre les 177 zones représentées à l’échelle Natural Earth 1:110 millions ; tous les petits pays ne sont pas présents.
+Le seeder et les textes sont identifiés comme démonstration et nécessitent une validation éditoriale. La recherche est textuelle, sans correction orthographique ni recherche sémantique. Les quinze univers ont leurs noms dans PostgreSQL, et leur édition est disponible pour les administrateurs. Le niveau de lecture n’est pas encore ajustable. GeoWorld couvre les 177 zones représentées à l’échelle Natural Earth 1:110 millions ; tous les petits pays ne sont pas présents.
 
 ## Exploitation future
 

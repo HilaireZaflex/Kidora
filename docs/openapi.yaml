@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "KIDORA Catalogue API",
-    "version": "0.1.0",
-    "description": "Catalogue public de démonstration. 120 requêtes/minute/IP ; quiz 30/minute/IP. Les opérations administratives et comptes ne sont pas encore exposés."
+    "version": "0.2.0",
+    "description": "Catalogue public. 120 requêtes/minute/IP ; quiz 30/minute/IP. Administration HTML indépendante sous /administration sur le frontend, par session et CSRF ; elle ne fait pas partie des routes JSON /api/v1."
   },
   "servers": [
     {
@@ -711,5 +711,24 @@
         }
       }
     }
+  },
+  "x-editorial-web": {
+    "basePath": "/administration",
+    "authentication": "Session Laravel HttpOnly ; jeton CSRF pour chaque POST. Aucun compte par défaut.",
+    "roles": [
+      "super_admin",
+      "admin",
+      "editor",
+      "writer",
+      "reviewer"
+    ],
+    "workflow": [
+      "draft",
+      "in_review",
+      "changes_requested",
+      "validated",
+      "published"
+    ],
+    "conflicts": "HTTP 409 si lock_version est obsolète ; publication réservée aux éditeurs et administrateurs après validation indépendante."
   }
 }

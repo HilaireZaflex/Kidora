@@ -14,6 +14,9 @@ export function Footer() {
         <Link href="/a-propos">
           Notre projet & confidentialité <Arrow />
         </Link>
+        {/* Full document navigation: administration serves independent Laravel HTML. */}
+        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+        <p><a href="/administration">Espace éditorial</a></p>
         <p>Version de démonstration · Créé pour les esprits curieux.</p>
       </div>
     </footer>

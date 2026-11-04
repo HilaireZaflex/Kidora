@@ -21,6 +21,15 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      {
+        source: "/administration/:path*",
+        headers: [
+          { key: "Content-Security-Policy", value: "default-src 'self'; style-src 'self'; script-src 'none'; img-src 'self' data:; form-action 'self'; frame-ancestors 'none'; base-uri 'none'" },
+          { key: "Referrer-Policy", value: "same-origin" },
+          { key: "X-Robots-Tag", value: "noindex, nofollow" },
+          { key: "Cache-Control", value: "no-store, private" },
+        ],
+      },
     ];
   },
 };

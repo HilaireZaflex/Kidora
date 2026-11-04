@@ -7,7 +7,8 @@
     "lint": "npm --prefix apps/web run lint",
     "typecheck": "npm --prefix apps/web run typecheck",
     "test:api": "bash infra/test-api.sh",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:editorial": "node infra/test-editorial.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",

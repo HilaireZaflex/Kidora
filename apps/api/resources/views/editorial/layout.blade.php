@@ -1,0 +1,7 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>@yield('title', 'Édition') · KIDORA</title><link rel="stylesheet" href="/administration/assets/editorial.css"></head>
+<body><a class="skip" href="#contenu">Aller au contenu</a><header class="topbar"><a href="/administration" class="brand">KIDORA <span>ÉDITION</span></a><a href="/">Retour à l’encyclopédie ↗</a></header>
+<div class="workspace">@auth<aside class="sidebar"><p class="caption">ESPACE ÉDITORIAL</p><nav aria-label="Navigation éditoriale"><a href="{{ route('editorial.articles.index', [], false) }}">Fiches & publications</a>@can('manageUniverses')<a href="{{ route('editorial.universes.index', [], false) }}">Univers</a>@endcan</nav><div class="identity"><strong>{{ auth()->user()->name }}</strong><p>{{ \App\Models\User::EDITORIAL_ROLES[auth()->user()->role] ?? 'Accès indisponible' }}</p><form action="{{ route('editorial.logout', [], false) }}" method="post">@csrf<button class="secondary" type="submit">Se déconnecter</button></form></div></aside>@endauth
+<main id="contenu" class="main">@if(session('status'))<p role="status" class="notice">{{ session('status') }}</p>@endif
+@if($errors->any())<div class="errors" role="alert"><strong>Vérifiez le formulaire.</strong><ul>@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul></div>@endif
+@yield('content')</main></div></body></html>

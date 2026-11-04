@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Article;
+use App\Models\EditorialEvent;
 use App\Models\Question;
 use App\Models\Quiz;
 use App\Models\Universe;
@@ -35,6 +36,10 @@ class DatabaseSeeder extends Seeder
                 ['futureworld', 'FutureWorld', 'Imagine demain', 'Découvre les métiers, les compétences et les idées qui aident à construire le monde de demain.', '#A59450', 'future'],
             ];
             foreach ($universes as $i => [$slug, $name, $theme, $description, $color, $icon]) {
+                $existingUniverse = Universe::where('slug', $slug)->first();
+                if ($existingUniverse && EditorialEvent::where('universe_id', $existingUniverse->id)->exists()) {
+                    continue;
+                }
                 Universe::updateOrCreate(['slug' => $slug], compact('name', 'theme', 'description', 'color', 'icon') + ['position' => $i + 1, 'status' => 'published']);
             }
             $articles = [
@@ -78,6 +83,10 @@ class DatabaseSeeder extends Seeder
             foreach ($articles as $a) {
                 $universe = Universe::where('slug', $a['universe'])->firstOrFail();
                 unset($a['universe']);
+                $existing = Article::where('slug', $a['slug'])->first();
+                if ($existing && ($existing->editorial_version > 0 || $existing->revisions()->exists() || $existing->events()->exists())) {
+                    continue;
+                }
                 Article::updateOrCreate(['slug' => $a['slug']], $a + ['universe_id' => $universe->id, 'age_label' => '6–12 ans', 'language' => 'fr', 'reading_minutes' => 3, 'is_demo' => true, 'status' => 'published']);
             }
             $article = Article::where('slug', 'le-systeme-solaire')->firstOrFail();

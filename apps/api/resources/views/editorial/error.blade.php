@@ -1,0 +1,3 @@
+@extends('editorial.layout')
+@section('title', 'Action indisponible')
+@section('content')<div class="panel"><span class="caption">{{ $statusCode }}</span><h1>{{ [403=>'Cette action n’est pas autorisée.',409=>'La version a changé.',419=>'La session du formulaire a expiré.',429=>'Trop de tentatives rapprochées.'][$statusCode] }}</h1><p>{{ [403=>'Votre rôle ou l’état de la fiche ne permet pas cette action.',409=>'Rechargez la fiche pour travailler sur sa dernière version. Votre enregistrement n’a pas remplacé les changements récents.',419=>'Revenez à la connexion ou rechargez le formulaire avant de réessayer.',429=>'Patientez un instant avant de réessayer.'][$statusCode] }}</p><a class="primary" href="/administration">Retour à l’espace éditorial</a></div>@endsection

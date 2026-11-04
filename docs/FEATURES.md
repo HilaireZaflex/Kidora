@@ -10,8 +10,12 @@ Accueil responsive, catalogue des quinze univers issus de PostgreSQL, pages d’
 
 Carte 2D, globe 3D chargé sur demande, rotation et zoom, recherche en français, sélection des zones et liaison aux fiches publiées par code ISO. Données Natural Earth documentées et distribuées avec leurs licences. Voir `DELIVERY_02.md`.
 
+## Administration éditoriale
+
+Connexion par session, cinq rôles contrôlés par politiques serveur, rédaction en blocs et références HTTPS, révisions privées, demandes de corrections motivées, validation indépendante et publication atomique. Historique des actions, protection contre les formulaires obsolètes, retrait sans suppression et édition des univers par administrateurs. Comptes créés par commande interactive, sans mot de passe par défaut.
+
 ## À venir
 
-Relief, capitales et enrichissement des fiches pays ; administration éditoriale avec rôles ; comptes parents/enfants et consentements ; carnet, favoris et progression persistante ; médias publiés, narrations et traductions ; moteur de quiz multi-types et mini-jeux ; PWA hors ligne avec téléchargements volontaires ; profils d’âge ; écoles.
+Relief, capitales et enrichissement des fiches pays ; gestion des comptes, médias et quiz par interface ; comptes parents/enfants et consentements ; carnet, favoris et progression persistante ; médias publiés, narrations et traductions ; moteur de quiz multi-types et mini-jeux ; PWA hors ligne avec téléchargements volontaires ; profils d’âge ; écoles.
 
 Kiro est un guide de liens prédéfinis, jamais présenté comme une IA conversationnelle. Les contenus de démonstration sont identifiés. Une action non implémentée ne reçoit pas de faux bouton.
