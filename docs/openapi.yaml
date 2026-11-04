@@ -541,7 +541,8 @@
           "reading_minutes",
           "is_demo",
           "universe",
-          "illustration"
+          "illustration",
+          "country_code"
         ],
         "properties": {
           "id": {
@@ -570,6 +571,14 @@
           },
           "illustration": {
             "type": "string"
+          },
+          "country_code": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[A-Z]{3}$",
+            "description": "Code ISO alpha-3 de la destination associée, lorsque disponible."
           }
         }
       },

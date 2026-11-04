@@ -16,7 +16,7 @@ Le lancement sélectionne explicitement un contexte Docker Desktop local avec so
 
 ## Ce que vous pouvez essayer
 
-Les quinze univers, les fiches sur les éléphants, le Mali et le système solaire, la recherche et le quiz de l’espace. Les contenus sont identifiés comme démonstration. Globe interactif, administration, comptes et mode hors ligne restent à venir.
+Les quinze univers, les fiches sur les éléphants, le Mali et le système solaire, la recherche et le quiz de l’espace. Les contenus sont identifiés comme démonstration. GeoWorld permet aussi d’explorer la carte et le globe 3D. Administration, comptes et mode hors ligne restent à venir.
 
 ## En cas de difficulté
 

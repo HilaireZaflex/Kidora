@@ -9,3 +9,5 @@ API publique versionnée `/api/v1`. Projections explicites, pagination bornée, 
 Les services de développement sont Docker Compose pour PHP et PostgreSQL, Node pour Next.js. Secrets exclusivement côté serveur. Configuration de marque dans `apps/web/src/config/brand.ts`.
 
 Pour la démo macOS, `compose.macos.yaml` fournit aussi le frontend Node dans Docker. Les lanceurs `.command` ciblent exclusivement un contexte Docker Desktop local et ouvrent le navigateur après les contrôles de disponibilité. Voir `macos/LIRE-MOI.md` et `macos/VALIDATION.md`.
+
+GeoWorld : route `apps/web/src/app/geoworld`, composants `components/geoworld`, décodage partagé `lib/geography`. TopoJSON et nomenclature française sont servis localement depuis `public/geography`. D3-geo fournit Equal Earth, les centroïdes et les tests d’inclusion sphérique ; Three et React Three Fiber sont importés uniquement pour la vue 3D. Une texture de 1024×512 est générée localement ; rendu à la demande, DPR plafonné à 1,5, contrôles OrbitControls sans rotation automatique.

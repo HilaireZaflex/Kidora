@@ -7,3 +7,5 @@ Web : TypeScript strict, lint, build production ; tests navigateur du parcours a
 Budgets initiaux à mesurer : aucune dépendance 3D dans l’accueil ; illustrations SVG locales ; objectif JS initial < 200 Ko gzip, LCP mobile < 2,5 s sur réseau de référence documenté. Ces objectifs ne sont pas des résultats mesurés.
 
 Futur : politiques admin et ownership parent/enfant, consentements, export/suppression, offline et invalidation, dégradation WebGL, données géographiques, restauration des sauvegardes. Toute vérification rapporte les tests exécutés et les échecs, pas seulement le code de sortie.
+
+GeoWorld : tests de chargement limité au module, recherche avec accents et clavier, sélection SVG, accès à la fiche du Mali, simulation de WebGL indisponible et contrôles axe-core. Le test 3D compare des captures du canvas avant/après zoom et rotation, puis identifie le Burkina Faso par un clic au centre du globe recentré (résultat vérifié sur les géométries du jeu). Chromium utilise SwiftShader dans le runner ; ce n’est pas un test de GPU physique.

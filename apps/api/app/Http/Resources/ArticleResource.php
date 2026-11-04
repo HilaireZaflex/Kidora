@@ -10,7 +10,7 @@ class ArticleResource extends JsonResource
     public function toArray(Request $request): array
     {
         $data = ['id' => $this->id, 'slug' => $this->slug, 'title' => $this->title,
-            'summary' => $this->summary, 'illustration' => $this->illustration, 'age_label' => $this->age_label,
+            'country_code' => $this->country_code, 'summary' => $this->summary, 'illustration' => $this->illustration, 'age_label' => $this->age_label,
             'reading_minutes' => $this->reading_minutes, 'is_demo' => $this->is_demo,
             'universe' => new UniverseResource($this->whenLoaded('universe'))];
         if ($this->relationLoaded('quiz')) {

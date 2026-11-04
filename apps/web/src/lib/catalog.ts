@@ -15,6 +15,7 @@ export type ArticleSummary = {
   slug: string;
   summary: string;
   illustration: string;
+  country_code: string | null;
   age_label: string;
   reading_minutes: number;
   is_demo: boolean;

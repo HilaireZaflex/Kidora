@@ -137,4 +137,13 @@ class CatalogTest extends TestCase
 
         $this->postJson('/api/v1/quizzes/'.$quiz->id.'/submit', ['answers' => $answers])->assertOk()->assertJsonPath('score', 3);
     }
+
+    public function test_geographic_article_exposes_its_country_link(): void
+    {
+        $this->seed(DatabaseSeeder::class);
+
+        $this->getJson('/api/v1/universes/geoworld')->assertOk()->assertJsonPath('articles.0.country_code', 'MLI');
+        $this->getJson('/api/v1/articles/bonjour-le-mali')->assertOk()->assertJsonPath('data.country_code', 'MLI');
+        $this->getJson('/api/v1/articles/le-systeme-solaire')->assertOk()->assertJsonPath('data.country_code', null);
+    }
 }

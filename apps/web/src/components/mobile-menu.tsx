@@ -25,6 +25,7 @@ export function MobileMenu() {
       >
         <Link href="/#univers">Les univers</Link>
         <Link href="/#decouverte">La découverte du jour</Link>
+        <Link href="/geoworld">Le globe</Link>
         <Link href="/jeux">Les jeux</Link>
         <Link href="/a-propos">Côté parents</Link>
       </nav>

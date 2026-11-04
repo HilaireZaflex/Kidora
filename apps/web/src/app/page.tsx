@@ -200,8 +200,7 @@ export default async function Home() {
       <section className="shell coming-soon">
         <span aria-hidden="true">✦</span>
         <p>
-          <strong>L’aventure ne fait que commencer.</strong> Globe interactif,
-          carnet personnel, vidéos et espace parent : à venir.
+          <strong>L’aventure ne fait que commencer.</strong> Carnet personnel, vidéos et espace parent : à venir.
         </p>
         <Link href="/a-propos">
           Découvrir le projet <Arrow />

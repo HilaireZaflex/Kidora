@@ -35,8 +35,7 @@ export default function AboutPage() {
       <p>
         Les illustrations vectorielles ont été créées pour cette démonstration.
         Le globe de l’accueil est une planète décorative imaginaire, pas une
-        carte géographique. Le module GeoWorld avec données géographiques
-        documentées reste à venir.
+        carte géographique. GeoWorld propose maintenant une carte et un globe interactif avec des frontières simplifiées de Natural Earth et leurs limites documentées.
       </p>
     </main>
   );

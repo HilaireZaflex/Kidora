@@ -2,9 +2,9 @@
 
 **Explore. Découvre. Apprends.** Une encyclopédie éducative pour les 6–12 ans, pensée au Mali.
 
-Première tranche : monorepo Next.js/Laravel/PostgreSQL, accueil illustré, quinze univers dynamiques, trois fiches de démonstration sourcées, recherche textuelle PostgreSQL par mots et préfixes et quiz corrigé côté serveur. Aucun compte enfant, contenu personnel ou assistant IA. Les autres modules sont explicitement à venir.
+Première tranche : monorepo Next.js/Laravel/PostgreSQL, accueil illustré, quinze univers dynamiques, trois fiches de démonstration sourcées, recherche textuelle PostgreSQL par mots et préfixes, quiz corrigé côté serveur et module GeoWorld (carte et globe 3D). Aucun compte enfant, contenu personnel ou assistant IA. Les autres modules sont explicitement à venir.
 
-Le [bilan de livraison](docs/DELIVERY_01.md) décrit les fonctionnalités, les vérifications et les limites de cette tranche.
+Les bilans [de la première tranche](docs/DELIVERY_01.md) et [de GeoWorld](docs/DELIVERY_02.md) décrivent les fonctionnalités, les vérifications et les limites de cette tranche.
 
 ## Tester sur macOS sans installer les runtimes
 
@@ -74,9 +74,9 @@ npm run test:e2e
 
 ## Limites de cette tranche
 
-Le globe interactif, l’administration, l’authentification parent/enfant, la progression, les traductions, les vidéos et le mode PWA hors ligne ne sont pas implémentés. Aucun faux contrôle ne les active. Les univers sans fiche affichent un état explicite. La planète illustrée de l’accueil est décorative, pas une carte scientifique.
+L’administration, l’authentification parent/enfant, la progression, les traductions, les vidéos et le mode PWA hors ligne ne sont pas implémentés. Aucun faux contrôle ne les active. Les univers sans fiche affichent un état explicite. La planète illustrée de l’accueil est décorative, pas une carte scientifique.
 
-Le seeder et les textes sont identifiés comme démonstration et nécessitent une validation éditoriale. La recherche est textuelle, sans correction orthographique ni recherche sémantique. Les quinze univers ont leurs noms dans PostgreSQL, mais leur édition par interface attend le module administration. Le niveau de lecture n’est pas encore ajustable.
+Le seeder et les textes sont identifiés comme démonstration et nécessitent une validation éditoriale. La recherche est textuelle, sans correction orthographique ni recherche sémantique. Les quinze univers ont leurs noms dans PostgreSQL, mais leur édition par interface attend le module administration. Le niveau de lecture n’est pas encore ajustable. GeoWorld couvre les 177 zones représentées à l’échelle Natural Earth 1:110 millions ; tous les petits pays ne sont pas présents.
 
 ## Exploitation future
 

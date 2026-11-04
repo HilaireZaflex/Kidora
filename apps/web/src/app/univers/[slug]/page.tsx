@@ -42,6 +42,18 @@ export default async function UniversePage({
         </div>
         <UniverseArt icon={u.icon} color={u.color} />
       </section>
+      {u.slug === "geoworld" && (
+        <div className="geo-entry">
+          <p>
+            <strong>Et si tu explorais la Terre ?</strong>
+            <br />
+            Choisis un pays sur la carte ou fais tourner le globe 3D.
+          </p>
+          <Link className="button" href="/geoworld">
+            Explorer la Terre
+          </Link>
+        </div>
+      )}
       <section className="section">
         <div className="section-heading">
           <h2>Ta prochaine découverte</h2>

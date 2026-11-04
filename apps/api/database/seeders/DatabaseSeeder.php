@@ -63,7 +63,7 @@ class DatabaseSeeder extends Seeder
                     'sources' => [['label' => 'NASA Science — Solar System', 'url' => 'https://science.nasa.gov/solar-system/'], ['label' => 'NASA Science — Planets', 'url' => 'https://science.nasa.gov/solar-system/planets/']],
                 ],
                 [
-                    'universe' => 'geoworld', 'illustration' => 'earth', 'slug' => 'bonjour-le-mali', 'title' => 'Bonjour, le Mali !',
+                    'universe' => 'geoworld', 'illustration' => 'earth', 'country_code' => 'MLI', 'slug' => 'bonjour-le-mali', 'title' => 'Bonjour, le Mali !',
                     'summary' => 'Découvre un pays d’Afrique de l’Ouest, ses paysages variés et le fleuve qui traverse sa capitale.',
                     'keywords' => ['Mali', 'Bamako', 'Afrique', 'Niger', 'pays', 'géographie'],
                     'blocks' => [

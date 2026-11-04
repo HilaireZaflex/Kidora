@@ -20,6 +20,7 @@ export function Header() {
         <nav aria-label="Navigation principale">
           <Link href="/#univers">Les univers</Link>
           <Link href="/#decouverte">La découverte du jour</Link>
+          <Link href="/geoworld">Le globe</Link>
           <Link href="/jeux">Les jeux</Link>
         </nav>
         <MobileMenu />
