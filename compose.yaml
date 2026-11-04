@@ -1,0 +1,44 @@
+name: kidora
+services:
+  db:
+    image: postgres:17-bookworm
+    environment:
+      POSTGRES_DB: kidora
+      POSTGRES_USER: kidora
+      POSTGRES_PASSWORD: kidora_dev_only
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kidora -d kidora"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+  api:
+    image: kidora-php
+    build:
+      context: .
+      dockerfile: infra/api.Dockerfile
+      secrets:
+        - proxy_ca
+    user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
+    volumes:
+      - ./apps/api:/app
+    environment:
+      DB_CONNECTION: pgsql
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_DATABASE: kidora
+      DB_USERNAME: kidora
+      DB_PASSWORD: kidora_dev_only
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+volumes:
+  postgres-data:
+secrets:
+  proxy_ca:
+    file: ${CODEX_PROXY_CERT:-/etc/ssl/certs/ca-certificates.crt}

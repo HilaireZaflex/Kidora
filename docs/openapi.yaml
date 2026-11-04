@@ -1,0 +1,706 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "KIDORA Catalogue API",
+    "version": "0.1.0",
+    "description": "Catalogue public de démonstration. 120 requêtes/minute/IP ; quiz 30/minute/IP. Les opérations administratives et comptes ne sont pas encore exposés."
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:8000/api/v1",
+      "description": "Développement local"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Vérifie PHP et une requête PostgreSQL",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Succès",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "database"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "database": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Ressource inexistante ou non publiée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Entrée invalide",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Limite de requêtes atteinte",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/universes": {
+      "get": {
+        "summary": "Univers publiés par ordre éditorial",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Succès",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Universe"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Ressource inexistante ou non publiée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Entrée invalide",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Limite de requêtes atteinte",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/universes/{slug}": {
+      "get": {
+        "summary": "Univers publié et jusqu’à 50 fiches disponibles",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succès",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "articles"
+                  ],
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/Universe"
+                    },
+                    "articles": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ArticleSummary"
+                      },
+                      "maxItems": 50
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Ressource inexistante ou non publiée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Entrée invalide",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Limite de requêtes atteinte",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/articles": {
+      "get": {
+        "summary": "Recherche textuelle par mots et préfixes, insensible à la casse dans les titres, résumés, blocs, mots-clés et univers",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succès",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "links",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ArticleSummary"
+                      },
+                      "maxItems": 30
+                    },
+                    "links": {
+                      "type": "object"
+                    },
+                    "meta": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Ressource inexistante ou non publiée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Entrée invalide",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Limite de requêtes atteinte",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/articles/{slug}": {
+      "get": {
+        "summary": "Fiche publiée, blocs, sources et quiz sans bonnes réponses",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succès",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/Article"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Ressource inexistante ou non publiée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Entrée invalide",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Limite de requêtes atteinte",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/quizzes/{id}/submit": {
+      "post": {
+        "summary": "Corrige un quiz public sans conserver de profil ni de réponse",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "answers"
+                ],
+                "properties": {
+                  "answers": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 100,
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "question_id",
+                        "option"
+                      ],
+                      "properties": {
+                        "question_id": {
+                          "type": "integer"
+                        },
+                        "option": {
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Succès",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "score",
+                    "total",
+                    "results"
+                  ],
+                  "properties": {
+                    "score": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "question_id",
+                          "correct",
+                          "correct_option",
+                          "explanation"
+                        ],
+                        "properties": {
+                          "question_id": {
+                            "type": "integer"
+                          },
+                          "correct": {
+                            "type": "boolean"
+                          },
+                          "correct_option": {
+                            "type": "integer"
+                          },
+                          "explanation": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Quiz non publié ou inexistant",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Tous les identifiants du quiz doivent apparaître une fois ; indices de choix valides",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "30 soumissions par minute et adresse IP",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Universe": {
+        "type": "object",
+        "required": [
+          "id",
+          "slug",
+          "name",
+          "theme",
+          "description",
+          "color",
+          "icon"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "theme": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string",
+            "pattern": "^#[0-9A-Fa-f]{6}$"
+          },
+          "icon": {
+            "type": "string"
+          },
+          "articles_count": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      },
+      "ArticleSummary": {
+        "type": "object",
+        "required": [
+          "id",
+          "slug",
+          "title",
+          "summary",
+          "age_label",
+          "reading_minutes",
+          "is_demo",
+          "universe",
+          "illustration"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "age_label": {
+            "type": "string"
+          },
+          "reading_minutes": {
+            "type": "integer"
+          },
+          "is_demo": {
+            "type": "boolean"
+          },
+          "universe": {
+            "$ref": "#/components/schemas/Universe"
+          },
+          "illustration": {
+            "type": "string"
+          }
+        }
+      },
+      "Article": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ArticleSummary"
+          },
+          {
+            "type": "object",
+            "required": [
+              "blocks",
+              "sources",
+              "quiz"
+            ],
+            "properties": {
+              "blocks": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "body"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "text",
+                        "fact"
+                      ]
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "body": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "sources": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "label",
+                    "url"
+                  ],
+                  "properties": {
+                    "label": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    }
+                  }
+                }
+              },
+              "quiz": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/Quiz"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "Question": {
+        "type": "object",
+        "required": [
+          "id",
+          "prompt",
+          "options"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "prompt": {
+            "type": "string"
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 2
+          }
+        }
+      },
+      "Quiz": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "questions"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "questions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Question"
+            }
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

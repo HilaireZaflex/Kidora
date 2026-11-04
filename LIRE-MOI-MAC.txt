@@ -1,0 +1,15 @@
+KIDORA — version de démonstration pour macOS
+
+1. Installez et ouvrez Docker Desktop pour Mac :
+   https://www.docker.com/products/docker-desktop/
+2. Gardez ce dossier complet, puis double-cliquez sur Ouvrir Kidora.command.
+3. Attendez la fin de la préparation : votre navigateur s’ouvre automatiquement.
+
+Pour arrêter la démo : double-cliquez sur Arrêter Kidora.command.
+Les données locales sont conservées.
+
+Aucune installation séparée de PHP, Node.js ou PostgreSQL n’est nécessaire.
+Le premier démarrage nécessite Internet et peut prendre plusieurs minutes.
+
+Le guide détaillé est dans macos/LIRE-MOI.md.
+Le lanceur n’a pas été exécuté sur un Mac physique pendant sa préparation.
